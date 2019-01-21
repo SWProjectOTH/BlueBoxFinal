@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.blueboxgames.moegn.de/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="KeyServiceService" targetNamespace="http://service.blueboxgames.moegn.de/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.blueboxgames.moegn.de/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://service.blueboxgames.moegn.de/">
+  <xs:element name="generateKey" type="tns:generateKey"/>
+  <xs:element name="generateKeyResponse" type="tns:generateKeyResponse"/>
+  <xs:element name="returnKey" type="tns:returnKey"/>
+  <xs:element name="returnKeyResponse" type="tns:returnKeyResponse"/>
+  <xs:complexType name="generateKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:keyGenerationRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="keyGenerationRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customer" type="xs:string"/>
+      <xs:element minOccurs="0" name="gameId" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+      <xs:element minOccurs="0" name="transactionId" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generateKeyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:generatedGameKey"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="generatedGameKey">
+    <xs:sequence>
+      <xs:element name="gameId" type="xs:long"/>
+      <xs:element minOccurs="0" name="gameKey" type="xs:string"/>
+      <xs:element name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="returnKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:keyReturnRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="keyReturnRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="customer" type="xs:string"/>
+      <xs:element minOccurs="0" name="key" type="xs:string"/>
+      <xs:element minOccurs="0" name="password" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="returnKeyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:returnedGameKey"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="returnedGameKey">
+    <xs:sequence>
+      <xs:element name="transactionId" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="KeyGenerationException" type="tns:KeyGenerationException"/>
+  <xs:complexType name="KeyGenerationException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="KeyReturnException" type="tns:KeyReturnException"/>
+  <xs:complexType name="KeyReturnException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="KeyReturnException">
+    <wsdl:part element="tns:KeyReturnException" name="KeyReturnException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generateKey">
+    <wsdl:part element="tns:generateKey" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generateKeyResponse">
+    <wsdl:part element="tns:generateKeyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="KeyGenerationException">
+    <wsdl:part element="tns:KeyGenerationException" name="KeyGenerationException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="returnKey">
+    <wsdl:part element="tns:returnKey" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="returnKeyResponse">
+    <wsdl:part element="tns:returnKeyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="KeyService">
+    <wsdl:operation name="generateKey">
+      <wsdl:input message="tns:generateKey" name="generateKey">
+    </wsdl:input>
+      <wsdl:output message="tns:generateKeyResponse" name="generateKeyResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:KeyGenerationException" name="KeyGenerationException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="returnKey">
+      <wsdl:input message="tns:returnKey" name="returnKey">
+    </wsdl:input>
+      <wsdl:output message="tns:returnKeyResponse" name="returnKeyResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:KeyReturnException" name="KeyReturnException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="KeyServiceServiceSoapBinding" type="tns:KeyService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="generateKey">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="generateKey">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generateKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="KeyGenerationException">
+        <soap:fault name="KeyGenerationException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="returnKey">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="returnKey">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="returnKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="KeyReturnException">
+        <soap:fault name="KeyReturnException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="KeyServiceService">
+    <wsdl:port binding="tns:KeyServiceServiceSoapBinding" name="KeyServicePort">
+      <soap:address location="http://localhost:8080/bluebox/KeyService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

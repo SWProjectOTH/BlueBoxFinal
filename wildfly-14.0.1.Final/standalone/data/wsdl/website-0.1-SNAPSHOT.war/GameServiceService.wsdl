@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.blueboxgames.moegn.de/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="GameServiceService" targetNamespace="http://service.blueboxgames.moegn.de/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.blueboxgames.moegn.de/" elementFormDefault="unqualified" targetNamespace="http://service.blueboxgames.moegn.de/" version="1.0">
+
+  <xs:element name="generateGameKey" type="tns:generateGameKey"/>
+
+  <xs:element name="generateGameKeyResponse" type="tns:generateGameKeyResponse"/>
+
+  <xs:element name="getAllGames" type="tns:getAllGames"/>
+
+  <xs:element name="getAllGamesResponse" type="tns:getAllGamesResponse"/>
+
+  <xs:element name="getGame" type="tns:getGame"/>
+
+  <xs:element name="getGameResponse" type="tns:getGameResponse"/>
+
+  <xs:complexType name="getAllGames">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getAllGamesResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:game"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="game">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="desc" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="gameKeys" nillable="true" type="tns:gameKey"/>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="versions" nillable="true" type="tns:gameVersion"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="abstractIdEntity">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="gameKey">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="account" type="tns:account"/>
+          <xs:element minOccurs="0" name="date" type="xs:dateTime"/>
+          <xs:element minOccurs="0" name="game" type="tns:game"/>
+          <xs:element name="transactionId" type="xs:long"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="account">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="password" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roles" nillable="true" type="tns:role"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="role">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="account" type="tns:account"/>
+          <xs:element minOccurs="0" name="roleType" type="tns:roleType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="gameVersion">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="fileData" type="xs:base64Binary"/>
+          <xs:element minOccurs="0" name="game" type="tns:game"/>
+          <xs:element minOccurs="0" name="updateNews" type="xs:string"/>
+          <xs:element minOccurs="0" name="version" type="xs:string"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="generateGameKey">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="tns:game"/>
+      <xs:element minOccurs="0" name="arg1" type="tns:account"/>
+      <xs:element name="arg2" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="generateGameKeyResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:gameKey"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getGame">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getGameResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:game"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="roleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CUSTOMER"/>
+      <xs:enumeration value="RESELLER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="getGameResponse">
+    <wsdl:part element="tns:getGameResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generateGameKey">
+    <wsdl:part element="tns:generateGameKey" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getGame">
+    <wsdl:part element="tns:getGame" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="generateGameKeyResponse">
+    <wsdl:part element="tns:generateGameKeyResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllGames">
+    <wsdl:part element="tns:getAllGames" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllGamesResponse">
+    <wsdl:part element="tns:getAllGamesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="GameService">
+    <wsdl:operation name="getAllGames">
+      <wsdl:input message="tns:getAllGames" name="getAllGames">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllGamesResponse" name="getAllGamesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateGameKey">
+      <wsdl:input message="tns:generateGameKey" name="generateGameKey">
+    </wsdl:input>
+      <wsdl:output message="tns:generateGameKeyResponse" name="generateGameKeyResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGame">
+      <wsdl:input message="tns:getGame" name="getGame">
+    </wsdl:input>
+      <wsdl:output message="tns:getGameResponse" name="getGameResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GameServiceServiceSoapBinding" type="tns:GameService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getAllGames">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllGames">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllGamesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="generateGameKey">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="generateGameKey">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="generateGameKeyResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getGame">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getGame">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getGameResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GameServiceService">
+    <wsdl:port binding="tns:GameServiceServiceSoapBinding" name="GameServicePort">
+      <soap:address location="http://localhost:8080/bluebox/GameService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

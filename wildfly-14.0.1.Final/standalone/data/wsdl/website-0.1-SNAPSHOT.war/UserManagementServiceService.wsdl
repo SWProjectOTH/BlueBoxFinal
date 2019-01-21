@@ -1,0 +1,210 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://service.blueboxgames.moegn.de/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="UserManagementServiceService" targetNamespace="http://service.blueboxgames.moegn.de/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://service.blueboxgames.moegn.de/" elementFormDefault="unqualified" targetNamespace="http://service.blueboxgames.moegn.de/" version="1.0">
+
+  <xs:element name="createAccount" type="tns:createAccount"/>
+
+  <xs:element name="createAccountResponse" type="tns:createAccountResponse"/>
+
+  <xs:element name="getAccount" type="tns:getAccount"/>
+
+  <xs:element name="getAccountResponse" type="tns:getAccountResponse"/>
+
+  <xs:element name="getAllAccounts" type="tns:getAllAccounts"/>
+
+  <xs:element name="getAllAccountsResponse" type="tns:getAllAccountsResponse"/>
+
+  <xs:element name="logIn" type="tns:logIn"/>
+
+  <xs:element name="logInResponse" type="tns:logInResponse"/>
+
+  <xs:complexType name="createAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="createAccountResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAllAccounts">
+    <xs:sequence/>
+  </xs:complexType>
+
+  <xs:complexType name="getAllAccountsResponse">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="return" type="tns:account"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="account">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="name" type="xs:string"/>
+          <xs:element minOccurs="0" name="password" type="xs:string"/>
+          <xs:element maxOccurs="unbounded" minOccurs="0" name="roles" nillable="true" type="tns:role"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType abstract="true" name="abstractIdEntity">
+    <xs:sequence>
+      <xs:element name="id" type="xs:long"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="role">
+    <xs:complexContent>
+      <xs:extension base="tns:abstractIdEntity">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="account" type="tns:account"/>
+          <xs:element minOccurs="0" name="roleType" type="tns:roleType"/>
+        </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:complexType name="getAccount">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="getAccountResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="return" type="tns:account"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="logIn">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+      <xs:element minOccurs="0" name="arg1" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="logInResponse">
+    <xs:sequence>
+      <xs:element name="return" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="roleType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="CUSTOMER"/>
+      <xs:enumeration value="RESELLER"/>
+      <xs:enumeration value="ADMIN"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="createAccountResponse">
+    <wsdl:part element="tns:createAccountResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllAccounts">
+    <wsdl:part element="tns:getAllAccounts" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logInResponse">
+    <wsdl:part element="tns:logInResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccount">
+    <wsdl:part element="tns:getAccount" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAllAccountsResponse">
+    <wsdl:part element="tns:getAllAccountsResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="createAccount">
+    <wsdl:part element="tns:createAccount" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getAccountResponse">
+    <wsdl:part element="tns:getAccountResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="logIn">
+    <wsdl:part element="tns:logIn" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="UserManagementService">
+    <wsdl:operation name="createAccount">
+      <wsdl:input message="tns:createAccount" name="createAccount">
+    </wsdl:input>
+      <wsdl:output message="tns:createAccountResponse" name="createAccountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllAccounts">
+      <wsdl:input message="tns:getAllAccounts" name="getAllAccounts">
+    </wsdl:input>
+      <wsdl:output message="tns:getAllAccountsResponse" name="getAllAccountsResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+      <wsdl:input message="tns:getAccount" name="getAccount">
+    </wsdl:input>
+      <wsdl:output message="tns:getAccountResponse" name="getAccountResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logIn">
+      <wsdl:input message="tns:logIn" name="logIn">
+    </wsdl:input>
+      <wsdl:output message="tns:logInResponse" name="logInResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="UserManagementServiceServiceSoapBinding" type="tns:UserManagementService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="createAccount">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="createAccount">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="createAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAllAccounts">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAllAccounts">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAllAccountsResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccount">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="getAccount">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getAccountResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="logIn">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="logIn">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="logInResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserManagementServiceService">
+    <wsdl:port binding="tns:UserManagementServiceServiceSoapBinding" name="UserManagementServicePort">
+      <soap:address location="http://localhost:8080/bluebox/UserManagementService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
